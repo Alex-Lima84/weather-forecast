@@ -1,10 +1,10 @@
-import { WeatherInfo } from './pages/home';
+import { ApiAdvisor } from "./pages/home/api-advisor";
 
 function App() {
 
   return (
     <>
-      <WeatherInfo />
+      <ApiAdvisor />
     </>
   )
 

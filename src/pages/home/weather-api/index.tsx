@@ -1,27 +1,21 @@
-import { useState, useEffect, FormEventHandler, ChangeEventHandler } from "react"
+import { useState, useEffect, ChangeEventHandler } from "react"
 import Loader from 'react-ts-loaders'
-import { MyVariables } from "../../variables"
+import { WeatherApiVariables } from "../../../variables"
 
-export function WeatherInfo() {
+export function WeatherApi() {
 
     const [cityName, setCityName] = useState<string>('')
     const [cityWeather, setCityWeather]: any = useState<{} | null>({})
-    const [value, setValue] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false);
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (event: any): void => {
-        setValue(event.target.value)
-    }
-
-    const handleSubmit: FormEventHandler<HTMLFormElement> = (event: any): void => {
-        event.preventDefault()
-        const transformedText = value.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+        const transformedText = event.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
         setCityName(transformedText)
     }
 
     async function getCurrentWeather(cityName: string): Promise<any> {
         setLoading(true)
-        const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${MyVariables.token}&q=${cityName}&${MyVariables.airQuality}&${MyVariables.dataLanguage}`)
+        const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${WeatherApiVariables.token}&q=${cityName}&${WeatherApiVariables.airQuality}&${WeatherApiVariables.dataLanguage}`)
         const data = await response.json()
         return data
     }
@@ -38,12 +32,11 @@ export function WeatherInfo() {
     return (
         <section>
             <div className="search-container">
-                <form onSubmit={handleSubmit} >
+                <form >
                     <input
                         onChange={handleChange}
                         placeholder="Digite o nome da cidade"
                     />
-                    <button>Search</button>
                 </form>
             </div>
 
