@@ -1,12 +1,13 @@
 import { useState, useEffect, ChangeEventHandler } from "react"
 import Loader from 'react-ts-loaders'
 import { WeatherApiVariables } from "../../../variables"
+import './styles.scss'
 
 export function WeatherApi() {
 
     const [cityName, setCityName] = useState<string>('')
     const [cityWeather, setCityWeather]: any = useState<{} | null>({})
-    const [cityWeatherForecast, setCityWeatherForecast]: any = useState<{} | null>([])
+    const [cityWeatherForecast, setCityWeatherForecast]: any = useState<[] | null>([])
     const [loading, setLoading] = useState<boolean>(false);
 
     async function getCurrentWeather(cityName: string): Promise<any> {
@@ -41,25 +42,23 @@ export function WeatherApi() {
     }
 
     return (
-        <>
-            <section className="search-section">
-                <div className="search-container">
-                    <form className="search-form">
-                        <input
-                            onChange={handleChange}
-                            placeholder="Digite o nome da cidade"
-                        />
-                    </form>
-                </div>
-            </section>
+        <section className="main-section">
 
-            <section className="current-weather-section">
+            <div className="search-container">
+                <form className="search-form">
+                    <input
+                        onChange={handleChange}
+                        placeholder="Digite o nome da cidade"
+                    />
+                </form>
+            </div>
+
+            <div className="current-weather-section">
                 {loading ?
                     <Loader
                         type="dotspinner"
-                        color="#0905a0"
+                        color="#002B5B"
                         size={150}
-                        message="Buscando a cidade"
                     />
                     :
                     <>
@@ -73,26 +72,33 @@ export function WeatherApi() {
                             </div>}
                     </>
                 }
-            </section>
+            </div>
 
-            <section className="weather-forecast-section">
-                <>
-                    {!cityWeatherForecast.forecast ? '' :
-                        <div className="weather-forecast-container">
-                            <h2>Previsão para os próximos dias</h2>
-                            {cityWeatherForecast.forecast.forecastday.map((item: any) =>
 
-                                <ul >
-                                    <li>{item.date}</li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                            )}
-                        </div>
+            {!cityWeatherForecast.forecast ? '' :
+                <div className="weather-forecast-container">
+                    <h2>Previsão para os próximos dias</h2>
+                    {cityWeatherForecast.forecast.forecastday.map((item: any) => {
+                        const dateUnix = ((item.date_epoch + 86400) * 1000)
+                        const newDate = new Date(dateUnix)
+                        const forecastWeekDay = newDate.toLocaleString("pt-BR", { weekday: "long" })
+                        const forecastDay = newDate.toLocaleString("pt-BR", { day: "numeric" })
+
+                        return (
+                            <li>
+                                <h2>{forecastWeekDay} - {forecastDay}</h2>
+                                <h3>{item.day.condition.text}</h3>
+                                <p>{item.day.daily_chance_of_rain} % - {item.day.totalprecip_mm} mm</p>
+                                <img alt="ícone do clima" src={item.day.condition.icon} />
+                                <p>🌡 {item.day.mintemp_c} °C</p>
+                                <p>🌡 {item.day.maxtemp_c} °C</p>
+                            </li>
+                        )
                     }
-                </>
+                    )}
+                </div>
+            }
 
-            </section>
-        </>
+        </section>
     );
 }

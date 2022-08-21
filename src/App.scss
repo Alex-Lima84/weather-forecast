@@ -19,3 +19,18 @@ ul {
 img {
   max-width: 100%;
 }
+
+#light {
+  background-color: #f3ebf6;
+}
+
+#dark {
+  background-color: #46045e;
+}
+
+.switch {
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+}
