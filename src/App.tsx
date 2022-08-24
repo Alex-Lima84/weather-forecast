@@ -14,7 +14,7 @@ function App() {
   },[theme])
 
   const toggleTheme = () => {
-    setTheme((currentTheme: any) => (currentTheme === "light" ? "dark" : "light"))
+    setTheme((currentTheme: string) => (currentTheme === "light" ? "dark" : "light"))
   }
 
   return (

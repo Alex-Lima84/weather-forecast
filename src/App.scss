@@ -22,10 +22,20 @@ img {
 
 #light {
   background-color: #f3ebf6;
+  height: 100vh;
+
+  label {
+    color:blue;
+  }
 }
 
 #dark {
   background-color: #46045e;
+  height: 100vh;
+
+  label {
+    color:aquamarine
+  }
 }
 
 .switch {
