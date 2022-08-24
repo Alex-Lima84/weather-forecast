@@ -21,7 +21,6 @@ export function WeatherApi() {
         setLoading(true)
         const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${WeatherApiVariables.token}&q=${cityName}&${WeatherApiVariables.airQuality}&${WeatherApiVariables.dataLanguage}&days=${WeatherApiVariables.forecastDays}`)
         const data = await response.json()
-        console.log(data.forecast)
         return data
     }
 
