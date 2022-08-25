@@ -25,7 +25,11 @@ img {
   height: 100vh;
 
   label {
-    color:blue;
+    fill:blue;
+  }
+
+  img {
+    fill: #ffd000
   }
 }
 
@@ -36,6 +40,10 @@ img {
   label {
     color:aquamarine
   }
+
+  img {
+    color: #060320
+  }
 }
 
 .switch {
@@ -43,4 +51,8 @@ img {
   height: 100px;
   justify-content: center;
   align-items: center;
+
+  img {
+    width: 35px;
+  }
 }

@@ -1,7 +1,9 @@
 import { WeatherApi } from "./pages/home/weather-api";
-import '../src/App.scss'
 import { createContext, useEffect, useState } from "react";
 import ReactSwitch from "react-switch";
+import styles from './App.module.scss'
+import sun from './assets/icons/sun.svg'
+import moon from './assets/icons/moon.svg'
 
 export const ThemeContext = createContext({})
 
@@ -11,7 +13,7 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
-  },[theme])
+  }, [theme])
 
   const toggleTheme = () => {
     setTheme((currentTheme: string) => (currentTheme === "light" ? "dark" : "light"))
@@ -19,16 +21,17 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className="App" id={theme}>
-        <WeatherApi />
-        <div className="switch">
+      <div id={styles[theme]}>
+        <div className={styles.switch}>
           <label>{theme === "light" ? "Light mode" : "Dark mode"}</label>
-          <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
+          <button onClick={toggleTheme}>
+            {theme === "light" ? <img src={sun} alt='ícone do sol'/> : <img src={moon} alt='ícone da lua'/>}
+          </button>
         </div>
+        <WeatherApi />
       </div>
     </ThemeContext.Provider>
   )
-
 }
 
 export default App;
