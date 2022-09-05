@@ -1,4 +1,4 @@
-$main-font: 'Poppins', sans-serif;
+$main-font: "Poppins", sans-serif;
 
 body {
   box-sizing: border-box;
@@ -21,28 +21,56 @@ img {
 }
 
 #light {
-  background-color: #f3ebf6;
+  background: url(./assets/images/light-background.jpg) no-repeat;
+  width: 100vw;
   height: 100vh;
+  background-color: #4c7088;
+  color: #03576F;
 
-  label {
-    fill:blue;
+  button {
+    width: 50px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    background-color: #bfeaf1;
+    transition: ease-in-out 0.5s;
+
+    img {
+      background-color: #bfeaf1;
+    }
   }
 
-  img {
-    fill: #ffd000
+  button:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 }
 
 #dark {
-  background-color: #46045e;
+  background: url(./assets/images/dark-background.jpg) no-repeat;
+  width: 100vw;
   height: 100vh;
+  background-color: #4c7088;
+  color: #fff;
 
-  label {
-    color:aquamarine
+  button {
+    width: 50px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    background-color: #03576F;
+    transition: ease-in-out 0.5s;
+
+    img {
+      background-color: #03576F;
+    }
   }
 
-  img {
-    color: #060320
+  button:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 }
 
