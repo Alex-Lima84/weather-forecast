@@ -17,7 +17,7 @@ export function WeatherApi() {
   async function getCurrentWeather(cityName: string): Promise<any> {
     setLoading(true);
     const response = await fetch(
-      `http://api.weatherapi.com/v1/current.json?key=${WeatherApiVariables.token}&q=${cityName}&${WeatherApiVariables.airQuality}&${WeatherApiVariables.dataLanguage}`
+      `https://api.weatherapi.com/v1/current.json?key=${WeatherApiVariables.token}&q=${cityName}&${WeatherApiVariables.airQuality}&${WeatherApiVariables.dataLanguage}`
     );
     const data = await response.json();
     console.log(data);
@@ -27,7 +27,7 @@ export function WeatherApi() {
   async function getWeatherForecast(cityName: string): Promise<any> {
     setLoading(true);
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=${WeatherApiVariables.token}&q=${cityName}&${WeatherApiVariables.airQuality}&${WeatherApiVariables.dataLanguage}&days=${WeatherApiVariables.forecastDays}`
+      `https://api.weatherapi.com/v1/forecast.json?key=${WeatherApiVariables.token}&q=${cityName}&${WeatherApiVariables.airQuality}&${WeatherApiVariables.dataLanguage}&days=${WeatherApiVariables.forecastDays}`
     );
     const data = await response.json();
     return data;
