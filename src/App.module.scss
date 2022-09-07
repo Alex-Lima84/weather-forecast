@@ -20,12 +20,18 @@ img {
   max-width: 100%;
 }
 
-#light {
-  background: url(./assets/images/light-background.jpg) no-repeat;
-  width: 100vw;
-  height: 100vh;
-  background-color: #4c7088;
-  color: #03576F;
+.switch {
+  display: flex;
+  height: 100px;
+  justify-content:space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+
+  h1 {
+    font-style: italic;
+    margin-left: 1rem;
+    font-weight: 300;
+  }
 
   button {
     width: 50px;
@@ -34,11 +40,26 @@ img {
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    background-color: #bfeaf1;
     transition: ease-in-out 0.5s;
+    margin-right: 1rem;
+  }
+
+  img {
+    width: 50px;
+  }
+}
+
+#light {
+  background: url(./assets/images/light-background.jpg) no-repeat;
+  background-color: #b9e8f2;
+  min-height: 100vh;
+  color: #03576f;
+
+  button {
+    background-color: #A0D8E7;
 
     img {
-      background-color: #bfeaf1;
+      background-color: #A0D8E7;
     }
   }
 
@@ -49,38 +70,19 @@ img {
 
 #dark {
   background: url(./assets/images/dark-background.jpg) no-repeat;
-  width: 100vw;
-  height: 100vh;
-  background-color: #4c7088;
+  background-color: #02050c;
+  min-height: 100vh;
   color: #fff;
 
   button {
-    width: 50px;
-    height: 50px;
-    outline: none;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    background-color: #03576F;
-    transition: ease-in-out 0.5s;
+    background-color: #00476F;
 
     img {
-      background-color: #03576F;
+      background-color: #00476F;
     }
   }
 
   button:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
-}
-
-.switch {
-  display: flex;
-  height: 100px;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    width: 35px;
   }
 }

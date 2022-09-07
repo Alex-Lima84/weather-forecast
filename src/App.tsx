@@ -1,6 +1,5 @@
 import { WeatherApi } from "./pages/home/weather-api";
 import { createContext, useEffect, useState } from "react";
-import ReactSwitch from "react-switch";
 import styles from "./App.module.scss";
 import sun from "./assets/icons/sun.svg";
 import moon from "./assets/icons/moon.svg";
@@ -26,6 +25,7 @@ function App() {
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div id={styles[theme]}>
         <div className={styles.switch}>
+          <h1>PREVISÃO DO TEMPO LIVRE ANÚNCIOS</h1>
           <button onClick={toggleTheme}>
             {theme === "light" ? (
               <img src={sun} alt="ícone do sol" />

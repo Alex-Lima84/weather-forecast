@@ -1,14 +1,18 @@
-import { useState, useEffect, ChangeEventHandler } from "react";
+import { useState, useEffect, ChangeEventHandler, createContext } from "react";
 import Loader from "react-ts-loaders";
 import { WeatherApiVariables } from "../../../variables";
-// import sunIcon from '../../../assets/icons/sun.svg'
 import styles from "./weather-api.module.scss";
+
+export const ThemeContext = createContext({});
 
 export function WeatherApi() {
   const [cityName, setCityName] = useState<string>("0");
   const [cityWeather, setCityWeather]: any = useState<{}>({});
   const [cityWeatherForecast, setCityWeatherForecast]: any = useState<[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [theme, setTheme] = useState<string>(
+    localStorage.getItem("theme") || "light"
+  );
 
   async function getCurrentWeather(cityName: string): Promise<any> {
     setLoading(true);
@@ -50,10 +54,10 @@ export function WeatherApi() {
   };
 
   return (
-    <section className={styles.main}>
-      <div className={styles.searchContainer}>
+    <section className={styles.main} id={styles[theme]}>
+      <div className={styles.search_container}>
         <h2>Busque por uma cidade</h2>
-        <form className={styles.searchForm}>
+        <form className={styles.search_form}>
           <input
             onChange={handleChange}
             placeholder="Ex: Blumenau, Santa Catarina"
@@ -61,39 +65,43 @@ export function WeatherApi() {
         </form>
       </div>
 
-      <div className={styles.currentWeatherSection}>
+      <section className={styles.current_weather_section}>
         {loading ? (
-          <Loader type="dotspinner" color="#002B5B" size={150} />
+          <Loader
+            className="loader"
+            type="roller"
+            size={150}
+           
+          />
         ) : (
           <>
             {!cityWeather.location ? (
               ""
             ) : (
-              <div className={styles.currentWeatherContainer}>
-                <h2>
-                  {" "}
-                  Condição climática atual em: {cityWeather.location.name},{" "}
-                  {cityWeather.location.region}
-                </h2>
-                <img
-                  alt="ícone da condição atual do tempo"
-                  src={cityWeather.current.condition.icon}
-                ></img>
-                <p>
-                  Condições climáticas: {cityWeather.current.condition.text}
-                </p>
+              <div className={styles.current_weather_container}>
+                <h2> Condição climática atual em:</h2>
+                <h3>
+                  {cityWeather.location.name}, {cityWeather.location.region}
+                </h3>
+                <div className={styles.condition_container}>
+                  <span>{cityWeather.current.condition.text}</span>
+                  <img
+                    alt="ícone da condição atual do tempo"
+                    src={cityWeather.current.condition.icon}
+                  ></img>
+                </div>
                 <span>Temperatura atual: {cityWeather.current.temp_c}</span>
                 <span>Sensação térmica: {cityWeather.current.feelslike_c}</span>
               </div>
             )}
           </>
         )}
-      </div>
+      </section>
 
       {!cityWeatherForecast.forecast ? (
         ""
       ) : (
-        <div className={styles.weatherForecastContainer}>
+        <div className={styles.weather_forecast_container}>
           <h2>Previsão para os próximos dias</h2>
           {cityWeatherForecast.forecast.forecastday.map((item: any) => {
             const dateUnix = (item.date_epoch + 86400) * 1000;
