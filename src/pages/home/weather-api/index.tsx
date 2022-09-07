@@ -3,6 +3,9 @@ import Loader from "react-ts-loaders";
 import { WeatherApiVariables } from "../../../variables";
 import styles from "./weather-api.module.scss";
 
+import lowTemperature from "../../../assets/icons/low-temperature-icon.svg";
+import highTemperature from "../../../assets/icons/high-temperature-icon.svg";
+
 export const ThemeContext = createContext({});
 
 export function WeatherApi() {
@@ -65,14 +68,9 @@ export function WeatherApi() {
         </form>
       </div>
 
-      <section className={styles.current_weather_section}>
+      <div className={styles.current_weather_section}>
         {loading ? (
-          <Loader
-            className="loader"
-            type="roller"
-            size={150}
-           
-          />
+          <Loader className="loader" type="roller" size={150} />
         ) : (
           <>
             {!cityWeather.location ? (
@@ -96,42 +94,55 @@ export function WeatherApi() {
             )}
           </>
         )}
-      </section>
+      </div>
 
       {!cityWeatherForecast.forecast ? (
         ""
       ) : (
-        <div className={styles.weather_forecast_container}>
+        <>
           <h2>Previsão para os próximos dias</h2>
-          {cityWeatherForecast.forecast.forecastday.map((item: any) => {
-            const dateUnix = (item.date_epoch + 86400) * 1000;
-            const newDate = new Date(dateUnix);
-            const forecastWeekDay = newDate.toLocaleString("pt-BR", {
-              weekday: "long",
-            });
-            const forecastDay = newDate.toLocaleString("pt-BR", {
-              day: "numeric",
-            });
-
-            return (
-              <ul className={styles.weatherForecastList}>
-                <li>
-                  <h2>
-                    {forecastWeekDay} - {forecastDay}
-                  </h2>
-                  <h3>{item.day.condition.text}</h3>
-                  <p>
-                    {item.day.daily_chance_of_rain} % -{" "}
-                    {item.day.totalprecip_mm} mm
-                  </p>
-                  <img alt="ícone do clima" src={item.day.condition.icon} />
-                  <p>🌡 {item.day.mintemp_c} °C</p>
-                  <p>🌡 {item.day.maxtemp_c} °C</p>
-                </li>
-              </ul>
-            );
-          })}
-        </div>
+          <section className={styles.weather_forecast_section}>
+            {cityWeatherForecast.forecast.forecastday.map((item: any) => {
+              const dateUnix = (item.date_epoch + 86400) * 1000;
+              const newDate = new Date(dateUnix);
+              const forecastWeekDay = newDate.toLocaleString("pt-BR", {
+                weekday: "long",
+              });
+              const forecastDay = newDate.toLocaleString("pt-BR", {
+                day: "numeric",
+              });
+              return (
+                <ul className={styles.weather_forecast_list}>
+                  <li>
+                    <h2>
+                      {forecastWeekDay} - {forecastDay}
+                    </h2>
+                    <div className={styles.forecast_condition_container}>
+                      <span>{item.day.condition.text}</span>
+                      <img alt="ícone do clima" src={item.day.condition.icon} />
+                    </div>
+                    <p>Precipitação: {item.day.daily_chance_of_rain} % - {item.day.totalprecip_mm} mm
+                    </p>
+                    <p>
+                      <img
+                        src={lowTemperature}
+                        alt="termômetro - temperatura baixa"
+                      />
+                      {item.day.mintemp_c} °C
+                    </p>
+                    <p>
+                      <img
+                        src={highTemperature}
+                        alt="termômetro - temperatura alta"
+                      />
+                      {item.day.maxtemp_c} °C
+                    </p>
+                  </li>
+                </ul>
+              );
+            })}
+          </section>
+        </>
       )}
     </section>
   );
