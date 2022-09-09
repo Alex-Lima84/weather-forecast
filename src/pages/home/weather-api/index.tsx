@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEventHandler, createContext } from "react";
+import React, { useState, useEffect, FormEventHandler, createContext } from "react";
 import Loader from "react-ts-loaders";
 import { WeatherApiVariables } from "../../../variables";
 import styles from "./weather-api.module.scss";
@@ -48,7 +48,7 @@ export function WeatherApi() {
     fetchData();
   }, [cityName]);
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event: React.FormEvent<HTMLFormElement>): void => {
     const transformedText = value
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
