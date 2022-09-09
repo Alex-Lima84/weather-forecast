@@ -26,7 +26,7 @@ function App() {
       <div id={styles[theme]}>
         <div className={styles.switch}>
           <h1>PREVISÃO DO TEMPO LIVRE DE ANÚNCIOS</h1>
-          <button onClick={toggleTheme}>
+          <button className={styles.switch_button} onClick={toggleTheme}>
             {theme === "light" ? (
               <img src={sun} alt="ícone do sol" />
             ) : (

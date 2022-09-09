@@ -23,7 +23,7 @@ img {
 .switch {
   display: flex;
   height: 100px;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 4rem;
 
@@ -33,7 +33,7 @@ img {
     font-weight: 300;
   }
 
-  button {
+  .switch_button {
     width: 50px;
     height: 50px;
     outline: none;
@@ -55,15 +55,15 @@ img {
   min-height: 100vh;
   color: #03576f;
 
-  button {
-    background-color: #B1E1ED;
+  .switch_button {
+    background-color: #b1e1ed;
 
     img {
-      background-color: #B1E1ED;
+      background-color: #b1e1ed;
     }
   }
 
-  button:hover {
+  .switch_button:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 }
@@ -74,15 +74,15 @@ img {
   min-height: 100vh;
   color: #fff;
 
-  button {
-    background-color: #004F70;
+  .switch_button {
+    background-color: #004f70;
 
     img {
-      background-color: #004F70;
+      background-color: #004f70;
     }
   }
 
-  button:hover {
+  .switch_button:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 }

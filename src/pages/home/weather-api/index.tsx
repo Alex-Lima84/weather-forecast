@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEventHandler, createContext } from "react";
+import { useState, useEffect, FormEventHandler, createContext } from "react";
 import Loader from "react-ts-loaders";
 import { WeatherApiVariables } from "../../../variables";
 import styles from "./weather-api.module.scss";
@@ -12,6 +12,7 @@ export function WeatherApi() {
   const [cityName, setCityName] = useState<string>("0");
   const [cityWeather, setCityWeather]: any = useState<{}>({});
   const [cityWeatherForecast, setCityWeatherForecast]: any = useState<[]>([]);
+  const [value, setValue] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const [theme, setTheme] = useState<string>(
     localStorage.getItem("theme") || "light"
@@ -47,24 +48,24 @@ export function WeatherApi() {
     fetchData();
   }, [cityName]);
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const transformedText = event.target.value
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    const transformedText = value
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
     setCityName(transformedText);
+    event.preventDefault();    
   };
 
   return (
     <section className={styles.main} id={styles[theme]}>
       <div className={styles.search_container}>
         <h2>Busque por uma cidade</h2>
-        <form className={styles.search_form}>
+        <form onSubmit={handleSubmit} className={styles.search_form}>
           <input
-            onChange={handleChange}
+            onChange={(e) => setValue(e.target.value)}
             placeholder="Ex: Blumenau, Santa Catarina"
           />
+          <button className={styles.search_btn}>Pesquisar</button>
         </form>
       </div>
 
@@ -121,7 +122,9 @@ export function WeatherApi() {
                       <span>{item.day.condition.text}</span>
                       <img alt="ícone do clima" src={item.day.condition.icon} />
                     </div>
-                    <p>Precipitação: {item.day.daily_chance_of_rain} % - {item.day.totalprecip_mm} mm
+                    <p>
+                      Precipitação: {item.day.daily_chance_of_rain} % -{" "}
+                      {item.day.totalprecip_mm} mm
                     </p>
                     <p>
                       <img

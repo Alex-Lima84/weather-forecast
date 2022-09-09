@@ -11,13 +11,17 @@
 }
 
 .search_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   input {
     background-color: #d4f5fa;
     color: #03576f;
     height: 25px;
     padding-left: 0.5rem;
     font-size: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     width: 350px;
     outline: none;
     border: 1px solid rgba(255, 255, 255, 0.212);
@@ -26,6 +30,22 @@
 
   input::placeholder {
     color: #03576f;
+  }
+
+  .search_btn {
+    width: 120px;
+    height: 30px;
+    background-color: #d4f5fa;
+    border: 1px solid #03576f;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition: ease-in 0.2s;
+    color: #03576f;
+    font-weight: 700;
+  }
+
+  .search_btn:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 }
 
@@ -96,8 +116,7 @@ h2 {
     li {
       text-align: center;
 
-
-      p{ 
+      p {
         text-align: left;
       }
     }
