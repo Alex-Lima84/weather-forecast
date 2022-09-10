@@ -42,14 +42,24 @@ export function WeatherApi() {
     fetchData();
   }, [cityName]);
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = (
     event: React.FormEvent<HTMLFormElement>
-  ): void => {
-    const transformedText = value
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-    setCityName(transformedText);
+  ) => {
     event.preventDefault();
+
+    if (value) {
+      const transformedText = value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      setCityName(transformedText);
+      setValue("");
+    } else {
+      return;
+    }
   };
 
   return (
@@ -58,10 +68,15 @@ export function WeatherApi() {
         <h2>Busque por uma cidade</h2>
         <form onSubmit={handleSubmit} className={styles.search_form}>
           <input
-            onChange={(e) => setValue(e.target.value)}
+            type="text"
+            onChange={handleChange}
             placeholder="Ex: Blumenau, Santa Catarina"
           />
-          <button className={styles.search_btn}>Pesquisar</button>
+          <input
+            type="submit"
+            className={styles.search_btn}
+            value="Pesquisar"
+          />
         </form>
       </div>
 
@@ -86,7 +101,9 @@ export function WeatherApi() {
                   ></img>
                 </div>
                 <span>Temperatura atual: {cityWeather.current.temp_c} °C</span>
-                <span>Sensação térmica: {cityWeather.current.feelslike_c} °C</span>
+                <span>
+                  Sensação térmica: {cityWeather.current.feelslike_c} °C
+                </span>
               </div>
             )}
           </>
@@ -99,47 +116,52 @@ export function WeatherApi() {
         <>
           <h2>Previsão para os próximos dias</h2>
           <section className={styles.weather_forecast_section}>
-            {cityWeatherForecast.forecast.forecastday.map((item: any, key: any) => {
-              const dateUnix = (item.date_epoch + 86400) * 1000;
-              const newDate = new Date(dateUnix);
-              const forecastWeekDay = newDate.toLocaleString("pt-BR", {
-                weekday: "long",
-              });
-              const forecastDay = newDate.toLocaleString("pt-BR", {
-                day: "numeric",
-              });
-              return (
-                <ul key={key} className={styles.weather_forecast_list}>
-                  <li>
-                    <h2>
-                      {forecastWeekDay} - {forecastDay}
-                    </h2>
-                    <div className={styles.forecast_condition_container}>
-                      <span>{item.day.condition.text}</span>
-                      <img alt="ícone do clima" src={item.day.condition.icon} />
-                    </div>
-                    <p>
-                      Precipitação: {item.day.daily_chance_of_rain} % -{" "}
-                      {item.day.totalprecip_mm} mm
-                    </p>
-                    <p>
-                      <img
-                        src={lowTemperature}
-                        alt="termômetro - temperatura baixa"
-                      />
-                      {item.day.mintemp_c} °C
-                    </p>
-                    <p>
-                      <img
-                        src={highTemperature}
-                        alt="termômetro - temperatura alta"
-                      />
-                      {item.day.maxtemp_c} °C
-                    </p>
-                  </li>
-                </ul>
-              );
-            })}
+            {cityWeatherForecast.forecast.forecastday.map(
+              (item: any, key: string) => {
+                const dateUnix = (item.date_epoch + 86400) * 1000;
+                const newDate = new Date(dateUnix);
+                const forecastWeekDay = newDate.toLocaleString("pt-BR", {
+                  weekday: "long",
+                });
+                const forecastDay = newDate.toLocaleString("pt-BR", {
+                  day: "numeric",
+                });
+                return (
+                  <ul key={key} className={styles.weather_forecast_list}>
+                    <li>
+                      <h2>
+                        {forecastWeekDay} - {forecastDay}
+                      </h2>
+                      <div className={styles.forecast_condition_container}>
+                        <span>{item.day.condition.text}</span>
+                        <img
+                          alt="ícone do clima"
+                          src={item.day.condition.icon}
+                        />
+                      </div>
+                      <p>
+                        Poss. chuva: {item.day.daily_chance_of_rain} % -{" "}
+                        {item.day.totalprecip_mm} mm
+                      </p>
+                      <p>
+                        <img
+                          src={lowTemperature}
+                          alt="termômetro - temperatura baixa"
+                        />
+                        {item.day.mintemp_c} °C
+                      </p>
+                      <p>
+                        <img
+                          src={highTemperature}
+                          alt="termômetro - temperatura alta"
+                        />
+                        {item.day.maxtemp_c} °C
+                      </p>
+                    </li>
+                  </ul>
+                );
+              }
+            )}
           </section>
         </>
       )}

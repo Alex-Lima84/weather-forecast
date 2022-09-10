@@ -12,7 +12,6 @@ export function Footer() {
       >
         Powered by WeatherAPI.com
       </a>
-      <p>Todos os direitos reservados - 2022</p>
       <div className={styles.contact_info}>
         <h5>Contato:</h5>
       <a href="mailto: alexandre.cerutti@live.com">
