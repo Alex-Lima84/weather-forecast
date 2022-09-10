@@ -9,7 +9,6 @@ body {
 
 a {
   text-decoration: none;
-  color: black;
 }
 
 ul {
@@ -56,15 +55,19 @@ img {
   color: #03576f;
 
   .switch_button {
-    background-color: #b1e1ed;
+    background-color: #b1e1ed38;
 
     img {
-      background-color: #b1e1ed;
+      background-color: #b1e1ed42;
     }
   }
 
   .switch_button:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  a {
+    color: #03576f;
   }
 }
 
@@ -75,14 +78,45 @@ img {
   color: #fff;
 
   .switch_button {
-    background-color: #004f70;
+    background-color: #004e703a;
 
     img {
-      background-color: #004f70;
+      background-color: #004e703a;
     }
   }
 
   .switch_button:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  a {
+    color: #fff;
+  }
+}
+
+@media (max-width: 768px) {
+  .switch {
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    .switch_button {
+      width: 40px;
+      height: 40px;
+    }
+
+    img {
+      min-width: 30px;
+    }
+  }
+}
+
+@media (max-width: 565px) {
+  .switch {
+    h1 {
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 0 0.5rem;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEventHandler, createContext } from "react";
+import React, { useState, useEffect, FormEventHandler } from "react";
 import Loader from "react-ts-loaders";
 import { WeatherApiVariables } from "../../../variables";
 import styles from "./weather-api.module.scss";
@@ -6,17 +6,12 @@ import styles from "./weather-api.module.scss";
 import lowTemperature from "../../../assets/icons/low-temperature-icon.svg";
 import highTemperature from "../../../assets/icons/high-temperature-icon.svg";
 
-export const ThemeContext = createContext({});
-
 export function WeatherApi() {
-  const [cityName, setCityName] = useState<string>("0");
+  const [cityName, setCityName] = useState<string>("");
   const [cityWeather, setCityWeather]: any = useState<{}>({});
   const [cityWeatherForecast, setCityWeatherForecast]: any = useState<[]>([]);
   const [value, setValue] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [theme, setTheme] = useState<string>(
-    localStorage.getItem("theme") || "light"
-  );
 
   async function getCurrentWeather(cityName: string): Promise<any> {
     setLoading(true);
@@ -24,7 +19,6 @@ export function WeatherApi() {
       `https://api.weatherapi.com/v1/current.json?key=${WeatherApiVariables.token}&q=${cityName}&${WeatherApiVariables.airQuality}&${WeatherApiVariables.dataLanguage}`
     );
     const data = await response.json();
-    console.log(data);
     return data;
   }
 
@@ -48,16 +42,18 @@ export function WeatherApi() {
     fetchData();
   }, [cityName]);
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (
+    event: React.FormEvent<HTMLFormElement>
+  ): void => {
     const transformedText = value
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
     setCityName(transformedText);
-    event.preventDefault();    
+    event.preventDefault();
   };
 
   return (
-    <section className={styles.main} id={styles[theme]}>
+    <section className={styles.main}>
       <div className={styles.search_container}>
         <h2>Busque por uma cidade</h2>
         <form onSubmit={handleSubmit} className={styles.search_form}>
@@ -89,8 +85,8 @@ export function WeatherApi() {
                     src={cityWeather.current.condition.icon}
                   ></img>
                 </div>
-                <span>Temperatura atual: {cityWeather.current.temp_c}</span>
-                <span>Sensação térmica: {cityWeather.current.feelslike_c}</span>
+                <span>Temperatura atual: {cityWeather.current.temp_c} °C</span>
+                <span>Sensação térmica: {cityWeather.current.feelslike_c} °C</span>
               </div>
             )}
           </>
@@ -103,7 +99,7 @@ export function WeatherApi() {
         <>
           <h2>Previsão para os próximos dias</h2>
           <section className={styles.weather_forecast_section}>
-            {cityWeatherForecast.forecast.forecastday.map((item: any) => {
+            {cityWeatherForecast.forecast.forecastday.map((item: any, key: any) => {
               const dateUnix = (item.date_epoch + 86400) * 1000;
               const newDate = new Date(dateUnix);
               const forecastWeekDay = newDate.toLocaleString("pt-BR", {
@@ -113,7 +109,7 @@ export function WeatherApi() {
                 day: "numeric",
               });
               return (
-                <ul className={styles.weather_forecast_list}>
+                <ul key={key} className={styles.weather_forecast_list}>
                   <li>
                     <h2>
                       {forecastWeekDay} - {forecastDay}

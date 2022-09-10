@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import sun from "./assets/icons/sun.svg";
 import moon from "./assets/icons/moon.svg";
+import { Footer } from "./components/footer";
 
 export const ThemeContext = createContext({});
 
@@ -35,7 +36,9 @@ function App() {
           </button>
         </div>
         <WeatherApi />
+        <Footer />
       </div>
+      
     </ThemeContext.Provider>
   );
 }

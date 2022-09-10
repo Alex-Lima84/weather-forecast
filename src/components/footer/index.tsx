@@ -1,7 +1,25 @@
-// Crédito para as imagens utilizadas: 
-// <a href="https://www.freepik.com/free-photo/grass-bokeh_877520.htm#page=3&query=weather%20background&position=42&from_view=keyword">Image by kjpargeter</a> on Freepik
-// <a href="https://www.freepik.com/free-photo/beautiful-shining-stars-night-sky_7631083.htm#query=night&position=1&from_view=search">Image by wirestock</a> on Freepik
+import styles from "./footer.module.scss";
+import email from "../../assets/icons/email.svg";
 
 export function Footer() {
-
+  return (
+    <footer className={styles.footer}>
+      <a className={styles.api_link}
+        href="https://www.weatherapi.com/"
+        title="Free Weather API"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Powered by WeatherAPI.com
+      </a>
+      <p>Todos os direitos reservados - 2022</p>
+      <div className={styles.contact_info}>
+        <h5>Contato:</h5>
+      <a href="mailto: alexandre.cerutti@live.com">
+        <img src={email} alt="ícone do email" />
+      </a>
+      </div>
+     
+    </footer>
+  );
 }

@@ -143,3 +143,24 @@ h2 {
     }
   }
 }
+
+@media (max-width: 425px) {
+
+  .search_form {
+    input {
+      width: 280px;
+    }
+
+    input::placeholder {
+      font-size: 0.8rem;
+    }
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  .current_weather_container {
+    width: 280px;
+  }
+}

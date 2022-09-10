@@ -1,0 +1,36 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 10rem;
+
+  .api_link {
+    width: 230px;
+  }
+
+  .contact_info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    h5 {
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+    a {
+      width: 25px;
+      height: 25px;
+
+      img {
+        width: 30px;
+        transition: ease-in 0.5s;
+      }
+
+      img:hover {
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+    }
+  }
+}
