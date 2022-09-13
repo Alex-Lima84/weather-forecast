@@ -21,7 +21,6 @@
     height: 25px;
     padding-left: 0.5rem;
     font-size: 1rem;
-    margin-bottom: 1rem;
     width: 350px;
     outline: none;
     border: 1px solid rgba(255, 255, 255, 0.212);
@@ -30,6 +29,12 @@
 
   input::placeholder {
     color: #03576f;
+  }
+
+  p {
+    font-size: 1.2rem;
+    height: 25px;
+    color: rgb(202, 39, 39);
   }
 
   .search_btn {

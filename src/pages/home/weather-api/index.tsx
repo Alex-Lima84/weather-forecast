@@ -1,10 +1,14 @@
 import React, { useState, useEffect, FormEventHandler } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Loader from "react-ts-loaders";
+
 import { WeatherApiVariables } from "../../../variables";
-import styles from "./weather-api.module.scss";
+import { inputSchema } from "../../../validations/schema";
 
 import lowTemperature from "../../../assets/icons/low-temperature-icon.svg";
 import highTemperature from "../../../assets/icons/high-temperature-icon.svg";
+import styles from "./weather-api.module.scss";
 
 export function WeatherApi() {
   const [cityName, setCityName] = useState<string>("");
@@ -12,6 +16,13 @@ export function WeatherApi() {
   const [cityWeatherForecast, setCityWeatherForecast]: any = useState<[]>([]);
   const [value, setValue] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  }: any = useForm({
+    resolver: yupResolver(inputSchema),
+  });
 
   async function getCurrentWeather(cityName: string): Promise<any> {
     setLoading(true);
@@ -44,34 +55,37 @@ export function WeatherApi() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
+    console.log(value);
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (
+  const executeSearch: FormEventHandler<HTMLFormElement> = (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
 
-    if (value) {
-      const transformedText = value
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-      setCityName(transformedText);
-      setValue("");
-    } else {
-      return;
-    }
+    const transformedText = value
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+    setCityName(transformedText);
+    setValue("");
   };
 
   return (
     <section className={styles.main}>
       <div className={styles.search_container}>
         <h2>Busque por uma cidade</h2>
-        <form onSubmit={handleSubmit} className={styles.search_form}>
+        <form
+          onSubmit={handleSubmit(executeSearch)}
+          className={styles.search_form}
+        >
           <input
             type="text"
+            name="searchField"
             onChange={handleChange}
             placeholder="Ex: Blumenau, Santa Catarina"
+            {...register("searchField")}
           />
+          <p>{errors.searchField?.message}</p>
           <input
             type="submit"
             className={styles.search_btn}
