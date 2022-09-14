@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEventHandler } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Loader from "react-ts-loaders";
@@ -9,15 +9,18 @@ import { inputSchema } from "../../../validations/schema";
 import lowTemperature from "../../../assets/icons/low-temperature-icon.svg";
 import highTemperature from "../../../assets/icons/high-temperature-icon.svg";
 import styles from "./weather-api.module.scss";
+interface ISearch {
+  searchField: string;
+}
 
 export function WeatherApi() {
   const [cityName, setCityName] = useState<string>("");
   const [cityWeather, setCityWeather]: any = useState<{}>({});
   const [cityWeatherForecast, setCityWeatherForecast]: any = useState<[]>([]);
-  const [value, setValue] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
+    resetField,
     handleSubmit,
     formState: { errors },
   }: any = useForm({
@@ -53,21 +56,12 @@ export function WeatherApi() {
     fetchData();
   }, [cityName]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    console.log(value);
-  };
-
-  const executeSearch: FormEventHandler<HTMLFormElement> = (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
-    event.preventDefault();
-
-    const transformedText = value
+  const handleSearch = (data: ISearch) => {
+    const transformedText = data.searchField
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
     setCityName(transformedText);
-    setValue("");
+    resetField("searchField");
   };
 
   return (
@@ -75,13 +69,12 @@ export function WeatherApi() {
       <div className={styles.search_container}>
         <h2>Busque por uma cidade</h2>
         <form
-          onSubmit={handleSubmit(executeSearch)}
+          onSubmit={handleSubmit(handleSearch)}
           className={styles.search_form}
         >
           <input
             type="text"
             name="searchField"
-            onChange={handleChange}
             placeholder="Ex: Blumenau, Santa Catarina"
             {...register("searchField")}
           />
