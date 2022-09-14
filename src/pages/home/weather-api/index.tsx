@@ -53,15 +53,27 @@ export function WeatherApi() {
     fetchData();
   }, [cityName]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    console.log(value);
-  };
+//   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     setValue(event.target.value);
+//     console.log(value);
+//   };
 
-  const executeSearch: FormEventHandler<HTMLFormElement> = (
-    event: React.FormEvent<HTMLFormElement>
+//   const executeSearch: FormEventHandler<HTMLFormElement> = (
+//     event: React.FormEvent<HTMLFormElement>
+//   ) => {
+//     event.preventDefault();
+
+//     const transformedText = value
+//       .normalize("NFD")
+//       .replace(/[\u0300-\u036f]/g, "");
+//     setCityName(transformedText);
+//     setValue("");
+//   };
+
+const executeSearch: FormEventHandler<HTMLFormElement> = (
+    data: object
   ) => {
-    event.preventDefault();
+    console.log(data)
 
     const transformedText = value
       .normalize("NFD")
@@ -81,7 +93,7 @@ export function WeatherApi() {
           <input
             type="text"
             name="searchField"
-            onChange={handleChange}
+<!--             onChange={handleChange} -->
             placeholder="Ex: Blumenau, Santa Catarina"
             {...register("searchField")}
           />
