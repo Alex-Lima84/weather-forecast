@@ -147,7 +147,7 @@ export function WeatherApi() {
                         />
                       </div>
                       <p>
-                        Poss. chuva: {item.day.daily_chance_of_rain} % -{" "}
+                        Prob. chuva: {item.day.daily_chance_of_rain} % -{" "}
                         {item.day.totalprecip_mm} mm
                       </p>
                       <p>
