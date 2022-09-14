@@ -153,14 +153,14 @@ export function WeatherApi() {
                       <p>
                         <img
                           src={lowTemperature}
-                          alt="termômetro - temperatura baixa"
+                          alt="termômetro - Temperatura baixa"
                         />
                         {item.day.mintemp_c} °C
                       </p>
                       <p>
                         <img
                           src={highTemperature}
-                          alt="termômetro - temperatura alta"
+                          alt="termômetro - Temperatura alta"
                         />
                         {item.day.maxtemp_c} °C
                       </p>
