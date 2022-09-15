@@ -5,13 +5,11 @@ import Loader from "react-ts-loaders";
 
 import { WeatherApiVariables } from "../../../variables";
 import { inputSchema } from "../../../validations/schema";
+import { ISearch } from "../../../Interfaces";
 
 import lowTemperature from "../../../assets/icons/low-temperature-icon.svg";
 import highTemperature from "../../../assets/icons/high-temperature-icon.svg";
 import styles from "./weather-api.module.scss";
-interface ISearch {
-  searchField: string;
-}
 
 export function WeatherApi() {
   const [cityName, setCityName] = useState<string>("");
